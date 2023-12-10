@@ -1,0 +1,115 @@
+sudo vim /etc/hosts
+# %sudo ALL=(ALL:ALL) NOPASSWD: ALL
+
+hostnamectl set-hostname ost61
+
+nano /etc/hosts
+#127.0.0.1	ost61
+
+sudo tee -a ~/.bashrc << EOT
+export PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin
+EOT
+
+sudo tee /etc/systemd/network/20-wired.network << EOT
+[Match]
+Name=eth0
+
+[Network]
+DHCP=yes
+EOT
+
+sudo apt remove unattended-upgrades -y
+
+sudo apt update && sudo apt upgrade -y
+
+sudo apt install sshpass lm-sensors net-tools qemu-kvm -y
+
+sudo nano /etc/sysctl.conf
+# net.ipv4.ip_forward=1
+
+sudo sysctl -p
+
+sudo tee /etc/systemd/network/veth-openstack-net-itf-veth0.netdev << EOT
+#network_interface w globals kolla-ansible
+[NetDev]
+Name=veth0
+Kind=veth
+[Peer]
+Name=veth0br
+EOT
+sudo tee /etc/systemd/network/veth-openstack-neu-ext-veth1.netdev << EOT
+#neutron_external_interface w globals kolla-ansible
+[NetDev]
+Name=veth1
+Kind=veth
+[Peer]
+Name=veth1br
+EOT
+sudo tee /etc/netplan/50-cloud-init.yaml << EOT
+###########################################
+# Konfiguracje sieciowe dla Lab OpenStack #
+###########################################
+
+network:
+  version: 2
+  renderer: networkd
+
+#-----------------------------------------#
+# Konfiguracja WiFi RbPi jako ratunkowego #
+#-----------------------------------------#
+
+# Interfejs wlan0 dostanie IPaddr z Linksysa przez DHCP.
+  wifis:
+    wlan0:
+      access-points:
+        FreshTomato06:
+          password: klasterek
+      dhcp4: true
+      optional: true
+
+#-----------------------------------------#
+# Konfiguracje sieciowe dla Kolla-Ansible #
+#-----------------------------------------#
+
+# Interfejsy
+
+  ethernets:
+    eth0:
+      dhcp4: false
+      dhcp6: false
+
+    # to bedzie network_interface dla kolla-ansible
+    veth0:
+      addresses:
+        - 192.168.1.xy/24   # dopasowac adres
+      nameservers:
+        addresses:
+          - 192.168.1.1     # dhcp na Linksysie
+          - 8.8.8.8
+      routes:
+        - to: 0.0.0.0/0
+          via: 192.168.1.1  # dhcp na Linksysie
+
+    veth0br:
+      dhcp4: false
+      dhcp6: false
+    veth1:                  # to bedzie neutron_external_interface dla kolla-ansible;
+      dhcp4: false
+      dhcp6: false
+    veth1br:
+      dhcp4: false
+      dhcp6: false
+
+# Bridge
+# bridge posredniczacy-multipleksujacy (logicznie po stronie providera sieci DC)
+
+  bridges:
+    brmux:
+      interfaces:
+        - eth0
+        - veth0br
+        - veth1br
+EOT
+sudo systemctl enable systemd-networkd
+sudo netplan generate
+sudo netplan apply
