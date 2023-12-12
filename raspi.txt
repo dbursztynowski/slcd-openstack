@@ -1,3 +1,14 @@
+sudo fallocate -l 10G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+sudo rm /etc/machine-id
+sudo rm /var/lib/dbus/machine-id
+sudo dbus-uuidgen --ensure=/etc/machine-id
+sudo cp /etc/machine-id /var/lib/dbus/machine-id
+
 sudo vim /etc/hosts
 # %sudo ALL=(ALL:ALL) NOPASSWD: ALL
 
