@@ -42,6 +42,35 @@ cp master-kolla/share/kolla-ansible/ansible/inventory/all-in-one .
 kolla-ansible install-deps
 kolla-genpwd
 
+tee ansible.cfg << EOT
+[defaults]
+host_key_checking=False
+pipelining=True
+forks=100
+EOT
+
+sudo tee /etc/kolla/config/nova/nova-compute.conf << EOT
+[DEFAULT]
+resume_guests_state_on_host_boot = true
+EOT
+
+sudo mkdir /etc/kolla/config/neutron
+sudo tee /etc/kolla/config/neutron/ml2_conf.ini << EOT
+[ml2]
+type_drivers = flat,vlan,vxlan
+tenant_network_types = vxlan
+
+[ml2_type_vlan]
+network_vlan_ranges = physnet1:100:200
+
+[ml2_type_flat]
+flat_networks = physnet1
+
+EOT
+
+sudo vim /etc/kolla/passwords.yml
+# keystone_admin_password: admin
+
 vim /etc/kolla/globals.yml
 # kolla_base_distro: "debian"
 # openstack_tag_suffix: "-aarch64"
@@ -50,6 +79,8 @@ vim /etc/kolla/globals.yml
 # neutron_external_interface: "veth1"
 # nova_compute_virt_type: "kvm"
 # enable_neutron_provider_networks: "yes"
+
+
 
 kolla-ansible -i all-in-one bootstrap-servers
 kolla-ansible -i all-in-one prechecks
