@@ -53,6 +53,8 @@ sudo apt remove unattended-upgrades -y
 sudo apt update && sudo apt upgrade -y
 sudo apt install sshpass lm-sensors net-tools qemu-kvm -y
 ```
+jeśli trafi się błąd o certyfikatach, których okres ważności *jeszcze* się nie zaczął, to pewnie klient ntp nie działa poprawnie  
+zostało to zaobserwowane przy instalowaniu i używaniu 
 
 zmodyfikować /etc/sysctl.conf
 ```
@@ -100,4 +102,5 @@ sudo netplan generate
 sudo netplan try
 ```
 jeśli po `sudo netplan try` po pewnej chwili zacznie się odliczanie, to jest dobrze i można wcisnąć enter żeby zachować zmiany  
-to zabezpieczenie jest jak przy zmienianiu ustawień monitora, jeśli byśmy się odcięli, to enter nie zostanie wciśnięty i komputer wróci do starych ustawień
+to zabezpieczenie jest jak przy zmienianiu ustawień monitora, jeśli byśmy się odcięli, to enter nie zostanie wciśnięty i komputer wróci do starych ustawień  
+dodatkowo, błąd `Cannot call Open vSwitch: ovsdb-server.service is not running.`, wręcz przeciwnie, jego brak byłby problemem jeśli już, bo OpenvSwitcha nie powinno jeszcze na tych maszynach być  
