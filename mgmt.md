@@ -1,44 +1,44 @@
+warto stworzyć swap bo malinki 4GB potrafią zapchać ram podczas instalacji kolla-ansible  
+```bash
 sudo fallocate -l 10G /swapfile
 sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo swapon /swapfile
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+```
 
+instalowanie potrzebnych rzeczy  
+```bash
 sudo apt remove unattended-upgrades -y
-
 sudo apt update && sudo apt upgrade -y
-
 sudo apt install -y ca-certificates curl gnupg sshpass git python3-dev libffi-dev gcc libssl-devpython3-venv
-
 sudo install -m 0755 -d /etc/apt/keyrings
-
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
-
 echo \
   "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
 sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
 sudo usermod -aG docker ubuntu
+```
 
+tworzenie venv dla instalatora openstacka, czyli kolla-ansible i instalowanie go  
+```
 python3 -m venv master-kolla
 source master-kolla/bin/activate
-
 pip install -U pip
 pip install 'ansible-core>=2.14,<2.16'
 pip install git+https://opendev.org/openstack/kolla-ansible@stable/2023.2
-
 sudo mkdir -p /etc/kolla
 sudo chown ubuntu:ubuntu /etc/kolla
+```
 
+przygotowanie konfiguracji kolla-ansible  
+```bash
 cp -r master-kolla/share/kolla-ansible/etc_examples/kolla/* /etc/kolla
-cp master-kolla/share/kolla-ansible/ansible/inventory/all-in-one .
-
+cp master-kolla/share/kolla-ansible/ansible/inventory/multinode .
 kolla-ansible install-deps
 kolla-genpwd
 
@@ -55,6 +55,7 @@ resume_guests_state_on_host_boot = true
 EOT
 
 sudo mkdir /etc/kolla/config/neutron
+
 sudo tee /etc/kolla/config/neutron/ml2_conf.ini << EOT
 [ml2]
 type_drivers = flat,vlan,vxlan
@@ -67,21 +68,27 @@ network_vlan_ranges = physnet1:100:200
 flat_networks = physnet1
 
 EOT
+```
 
-sudo vim /etc/kolla/passwords.yml
-# keystone_admin_password: admin
+ustawić w pliku z hasłami, czyli /etc/kolla/passwords.yml, hasło do logowania np do panelu w przeglądarce
+```
+keystone_admin_password: jakies_zapamietywalne_haslo
+```
 
-vim /etc/kolla/globals.yml
-# kolla_base_distro: "debian"
-# openstack_tag_suffix: "-aarch64"
-# kolla_internal_vip_address: "192.168.1.60"
-# network_interface: "veth0"
-# neutron_external_interface: "veth1"
-# nova_compute_virt_type: "kvm"
-# enable_neutron_provider_networks: "yes"
+ustawić kilka ustawień openstacka w pliku /etc/kolla/globals.yml
+```
+kolla_base_distro: "debian"
+openstack_tag_suffix: "-aarch64"
+kolla_internal_vip_address: "192.168.1.60"
+network_interface: "veth0"
+neutron_external_interface: "veth1"
+nova_compute_virt_type: "kvm"
+enable_neutron_provider_networks: "yes"
+```
 
-
-
-kolla-ansible -i all-in-one bootstrap-servers
-kolla-ansible -i all-in-one prechecks
-kolla-ansible -i all-in-one deploy
+instalacja openstacka na hostach
+```bash
+kolla-ansible -i multinode bootstrap-servers
+kolla-ansible -i multinode prechecks
+kolla-ansible -i multinode deploy
+```
