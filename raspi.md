@@ -54,7 +54,7 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install sshpass lm-sensors net-tools qemu-kvm -y
 ```
 jeśli trafi się błąd o certyfikatach, których okres ważności *jeszcze* się nie zaczął, to pewnie klient ntp nie działa poprawnie  
-zostało to zaobserwowane przy instalowaniu i używaniu 
+zostało to zaobserwowane przy instalowaniu systemu i używaniu raspberry pi w sieci akademika riviera
 
 zmodyfikować /etc/sysctl.conf
 ```
