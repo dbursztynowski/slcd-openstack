@@ -1,0 +1,10 @@
+# Definujemy w networkd.netdev ze wzgledu na ustawienie VLANFiltering=true, 
+# bo i tak brmux wystepuje w pliku netplan
+
+[NetDev]
+Name=brmux
+Kind=bridge
+
+[Bridge]
+VLANFiltering=true
+DefaultPVID=none
