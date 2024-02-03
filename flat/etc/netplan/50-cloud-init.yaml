@@ -1,0 +1,73 @@
+###########################################
+# Konfiguracje sieciowe dla Lab OpenStack #
+###########################################
+
+network:
+  version: 2
+  renderer: networkd
+
+#-----------------------------------------#
+# Konfiguracja WiFi RbPi jako ratunkowego #
+#-----------------------------------------#
+
+# Interfejs wlan0 dostanie IPaddr z Linksysa przez DHCP.
+  wifis:
+    wlan0:
+      access-points:
+        FreshTomato09:
+          password: klasterek
+      dhcp4: true
+      optional: true
+
+#-----------------------------------------#
+# Konfiguracje sieciowe dla Kolla-Ansible #
+#-----------------------------------------#
+
+# Interfejsy
+
+  ethernets:
+    eth0:
+      dhcp4: false
+      dhcp6: false
+
+    # to bedzie network_interface dla kolla-ansible
+    veth0:
+      addresses:
+        - 192.168.1.61/24   # dopasowac adres do raspberry
+      nameservers:
+        addresses:
+          - 192.168.1.1     # dhcp na Linksysie
+          - 8.8.8.8
+      routes:
+        - to: 0.0.0.0/0
+          via: 192.168.1.1  # dhcp na Linksysie
+
+#    veth0br:
+#      dhcp4: false
+#      dhcp6: false
+    veth1:                  # to bedzie dla kolla-ansible intf neutron_external_interface odwzorowany przez kolla na i podpięty do br-ex;
+      dhcp4: false
+      dhcp6: false
+#    veth1br:
+#      dhcp4: false
+#      dhcp6: false
+
+# Ponizsze poza veth1 jest niepotrzebne (lub nawet bledne) w przypadku uzycia systemd-networkd.
+# Pozostawiono to dla celow dydaktycznych/porownawczych. Zasada jednoczesnego uzycia netplan i 
+# systemd-networkd jest taka, ze zadna definicja sieciowa nie moze wystapic jednoczesnie zarowno w pliku  
+# netplan-owym, jak i w pliku networkd-owym. Np. odkometowanie ponizej w bridge
+# "brmux" interfejsu "veth0br" spowoduje niepoprawne skonfigurowanie sieci VLAN dla tego interfejsu 
+# (calkowie ich zignorowanie) dla interfejsu "veth0br" - por. pliki w katalogu # /etc/systemd/network/.
+# Z kolei deklaracje DHCP dla eth0 i ustawienia adresacji/DNS i routingu IP dla veth0 powyzej sa poprawne, 
+# poniewaz uzupelniaja one definicje eth0 i veth0 o nowe elementy (adresowo-rutingowe) - elementow tych
+# nie ma w definicjach podanych w katalogu /etc/systemd/network/.
+
+# Bridge
+# bridge posredniczacy-multipleksujacy (logicznie po stronie providera sieci DC)
+
+#  bridges:
+#    brmux:
+#      interfaces:
+#        - eth0
+#        - veth0br
+#        - veth1br
