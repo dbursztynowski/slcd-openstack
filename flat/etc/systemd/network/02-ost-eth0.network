@@ -1,0 +1,14 @@
+[Match]
+Name=eth0
+#Type=ether
+
+[Network]
+Bridge=brmux
+
+# dla sieci z adresacja network-interface i dla flat provider external network
+[BridgeVLAN]
+VLAN=2
+
+# dla sieci VLAN provider network; edukacyjnie, dwa VLANy wystarcza
+[BridgeVLAN]
+VLAN=100-101

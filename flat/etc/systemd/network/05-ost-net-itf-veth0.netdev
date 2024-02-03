@@ -1,0 +1,7 @@
+#network_interface w globals kolla-ansible
+[NetDev]
+Name=veth0br
+Kind=veth
+
+[Peer]
+Name=veth0
