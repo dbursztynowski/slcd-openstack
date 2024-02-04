@@ -40,3 +40,11 @@ Nie bez powodu w instrukcji nie było instalowania openvswitch na hostach.
 Nie sprawdzaliśmy dokładnie bo to nie było krytyczne, ale problemy z synchronizacją czasu, kiedy klaster tu był, na to wskazywały.  
 W sumie to bardziej taka ciekawostka.  
 Rozwiązaliśmy go przenosząc klaster z powrotem do mieszkania kolegów z internetem komórkowym.  
+
+### 5. Systemd-networkd nie odświeża całej konfiguracji przy `systemctl restart systemd-networkd`
+Okazuje się że konfiguracja bridge nie aktualizuje się po samym restarcie, trzeba go wcześniej usunąć:
+```bash
+ip link set down brmux
+ip link del dev brmux
+systemctl restart systemd-networkd
+```

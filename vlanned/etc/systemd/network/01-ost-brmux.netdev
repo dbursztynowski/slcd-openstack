@@ -5,3 +5,6 @@
 Name=brmux
 Kind=bridge
 
+[Bridge]
+VLANFiltering=true
+DefaultPVID=none

@@ -1,0 +1,22 @@
+# definicje na potrzeby network-external-interface wg kolla-ansible
+
+[Match]
+Name=veth1br
+
+[Network]
+Bridge=brmux
+
+# dolaczenie do interfejsu vlan1 sieci flat provider network z 
+# adresacja z Linksys na potrzeby external network; tak samo 
+# bedzie w veth0br na potrzeny network-interface
+# z VLAN=2 do veth0 bedzie dostarczona siec nietagowana (z domyslnym VLAN=1)
+[BridgeVLAN]
+PVID=2
+EgressUntagged=2
+
+# na potrzeby wewnetrznych sieci OpenStack typu VLAN provider network
+# (i ew. na potrzeby sieci tenanckich VLAN - o ile beda dozwolone w 
+# pliku ml.2 - por. konfiguracje dla kolla-ansible)
+# ponizsze VLANy beda dostarczone do veth1 na potrzeby Neutrona
+[BridgeVLAN]
+VLAN=100-101
