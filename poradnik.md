@@ -21,9 +21,18 @@ Switch też zresetować, tam ważne żeby na początku nie było ustawionych vla
 
 ## Ustawić wstępnie router
 Izolujemy sieć WiFi od sieci providerskiej ethernet
-W panelu routera w zakładce Basic->Network należy stworzyć bridge br1 i przypisać go do WiFi w zakładce Advanced->Virtual Wireless.
+Przydzielamy inną podsieć dla bridge `br1` wewnątrz routera, do którego będą podłączone urządzenia w sieci WiFi.
+W panelu routera w zakładce Basic->Network należy stworzyć bridge `br1` i przypisać go do WiFi w zakładce Advanced->Virtual Wireless.  
 ![](img/wifi-bridge-linksys.png)
 ![](img/bridge-linksys.png)
+
+Włączamy w routerze funkcję routowania między podsieciami 192.168.1.0/24 i 10.0.1.0/24.  
+W produkcyjnym datacenter to słaby pomysł i można tą funkcję na koniec konfiguracji wyłączyć, ale tu potrzebujemy z naszego komputera dostępu jednocześnie do interfejsów WiFi RbPi i do panela switcha.  
+Jest to zakładka Advanced->LAN Access w panelu routera.  
+![](img/linksys-lan-access.png)
+
+Komputer używany do konfiguracji może być podłączony przez sieć WiFi albo po kablu do routera.
+Warto w przypadku głowienia się nad niespodziewanymi problemami pamiętać, że komputer podłączony po kablu dostaje ip z podsieci 192.168.1.0/24, a po WiFi z podsieci 10.0.1.0/24.
 
 ## Teraz trzeba zrobić restart routera opcją Reboot na dole lewego menu bo inaczej te ustawienia się nie zastosują
 
@@ -269,8 +278,8 @@ ip link del dev brmux
 systemctl restart systemd-networkd
 ```
 
-## Po tych komendach RbPi będzie odcięte póki nie ustawimy vlanów na porcie w switchu.
-Dodajemy je w panelu switcha w dwóch miejscach.
+## Po tych komendach RbPi będzie do czasu dodania VLANów na switchu dostępne tylko przez swoje IP WiFi  
+Dodajemy VLANy w panelu switcha w dwóch miejscach.
 
 Najpierw w zakładce VLAN -> 802.1Q VLAN.  
 Włączamy obsługę vlanów przełącznikiem Enable na górze, a potem dodajemy pojedynczo konkretne vlany na portach.
