@@ -25,6 +25,8 @@ W panelu routera w zakładce Basic->Network należy stworzyć bridge br1 i przyp
 ![](img/wifi-bridge-linksys.png)
 ![](img/bridge-linksys.png)
 
+## Teraz trzeba zrobić restart routera opcją Reboot na dole lewego menu bo inaczej te ustawienia się nie zastosują
+
 # Przygotowanie raspberry pi
 ## Robimy dla każdego raspberry pi
 
