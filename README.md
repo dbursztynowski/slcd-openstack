@@ -1,6 +1,6 @@
 # slcd-openstack
 
-Projekt stworzenia mini datacenter z użyciem minikomputerów Raspberry Pi i oprogramowania Openstack
+Tworzymy mini-datacenter z użyciem minikomputerów Raspberry Pi i oprogramowania Openstack.
 
 ```
 Fizyczna struktura sieciowa klastra
@@ -23,21 +23,21 @@ Fizyczna struktura sieciowa klastra
                WAN
 ```
 
-Wszystkie hosty (Raspberry Pi) klastra mają port eth0 podłączony do switcha i wirtualizowany wewnątrz Raspberry Pi jako dwa porty veth0 i veth1 oraz połączenie po wifi do routera jako połączenie zapasowe na wypadek odcięcia się przy kombinowaniu nad główną siecią.  
+Wszystkie hosty (Raspberry Pi) klastra mają interfejs fizyczny podłączony do switcha, a port eth0 dowiązany do wirtualnego bridge wewnątrz Raspberry Pi w celu uzyskania dwóch portów, tutaj veth0 i veth1. Wynika to z tego, że co najmniej dwa porty są wymagane przez używany w projekcie instalator Kolla-Ansible. Ponadto każdy host Raspberry Pi jest podłączony po WiFi do routera jako połączenie zapasowe na wypadek odcięcia się przy kombinowaniu nad główną siecią. Ruter ten separuje też infrastrukturę mini-datacenter od reszty sieci (domowej/akademika, etc.).
 
 ```
-Sieciówka każdego hosta klastra
+Zgodnie z powyższym, sieciówka każdego hosta klastra w aspekcie OpenStack (z pominięciem WiFi) wygląda następująco:
 
 192.168.1.6x/24   bez adresu IP (tego chce Kolla-Ansible)
   +---------+       +---------+
-  |  veth0  |       |  veth1  |    interfejsy wirtualne dla openstacka
+  |  veth0  |       |  veth1  |    interfejsy wirtualne dla OpenStack (jeden z nich dostanie adres IP z sieci lokalnej)
   +---------+       +---------+
        |   veth  pairs   |
   +---------+       +---------+
   | veth0br |       | veth1br |
   +---------+       +---------+
      +-┴-----------------┴-+
-     |        brmux        | # 192.168.1.6x/24
+     |        brmux        | # 192.168.1.6x/24 ten bridge docelowo nie musi mieć nadanego adresu IP
      +----------┬----------+
            +---------+
            |  eth0   |    fizyczny iterface RbPi
