@@ -44,4 +44,4 @@ Zgodnie z powyższym, sieciówka każdego hosta klastra w aspekcie OpenStack (z 
            +---------+
 ```
 
-##Instrukcje instalacyjne sa zawarte w pliku poradni.md. Wskazóki na okoliczność występowania problemów zawarto w pliku problemy.md.
+## Uwaga: Instrukcje instalacyjne sa zawarte w pliku poradni.md. Wskazóki na okoliczność występowania problemów zawarto w pliku problemy.md.
