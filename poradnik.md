@@ -1,7 +1,7 @@
-# wstępne przygotowanie routera i switcha
+# Wstępne przygotowanie routera i switcha
 
 ### Uwaga: ###
-**Wszystkie adresy IP należy dostosować do swojego środowiska sieciowego.**
+**Wszystkie adresy IP należy dostosować do swojego środowiska sieciowego. Podane w instrukcji dane logowania (poza fabrycznymi dla urządzeń) są przykłądowe.**
 
 Zresetować je do ustawień fabrycznych
 
@@ -24,7 +24,7 @@ Po resecie powinny być takie (przykłądowe) ustawienia routera:
 Switch TP-Link też zresetować (przywracając ustawienia fabryczne - wcisnąć przycisk na tylnej sciance). Ważne jest, aby nie było ustawionych vlanów w zakładce VLAN->802.1Q VLAN, czyli w ten sposób jak poniżej jest dobrze (w przeciwnym razie VLANy należy usunąć):  
 ![](img/tplink-factory.png)
 ### Uwaga: ###
-**W naszych ruterach TP-Link, po przywróceniu ustawień fabrycznych, logujemy się jako user=admin oraz passwd=admin i przy pierwszym logowaniu wymuszana jest zmiana co najmniej hasła!**
+**W naszych ruterach TP-Link, po przywróceniu ustawień fabrycznych, logujemy się jako user=admin, passwd=admin i przy pierwszym logowaniu wymuszana jest zmiana co najmniej hasła!**
 
 ## Ustawić wstępnie router
 Izolujemy sieć WiFi od fizycznej sieci dostawcy (_providerskiej_) Ethernet
