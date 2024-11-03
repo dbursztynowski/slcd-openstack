@@ -43,3 +43,5 @@ Zgodnie z powyższym, sieciówka każdego hosta klastra w aspekcie OpenStack (z 
            |  eth0   |    fizyczny iterface RbPi
            +---------+
 ```
+
+##Instrukcje instalacyjne sa zawarte w pliku poradni.md. Wskazóki na okoliczność występowania problemów zawarto w pliku problemy.md.
