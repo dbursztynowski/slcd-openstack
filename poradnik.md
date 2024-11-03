@@ -1,5 +1,8 @@
 # wstępne przygotowanie routera i switcha
 
+### Uwaga: ###
+**Wszystkie adresy IP należy dostosować do swojego środowiska sieciowego.**
+
 Zresetować je do ustawień fabrycznych
 
 Panel routera znajduje się na IP http://192.168.1.1/  
@@ -8,19 +11,23 @@ login:hasło root:admin
 Żeby wejść na panel switcha trzeba sprawdzić w panelu routera w Status->Device List jakie switch dostał IP:
 ![](img/device-list-linksys.png)
 
-Po resecie powinny być takie ustawienia routera:
+Po resecie powinny być takie (przykłądowe) ustawienia routera:
 ### LINKSYS
 - release FreshTomato v.2022.6
 - ruter/WiFi
   192.168.1.1
   user/pwd/wifi-key: klasterek/klasterek/klasterek
   SSID FreshTomato06
+### Uwaga: ###
+**W niektórych Linksysach ustawienia mogą być fabryczne, typowo user=root, passwd=admin.**
 
-Switch też zresetować, tam ważne żeby na początku nie było ustawionych vlanów w zakładce VLAN->802.1Q VLAN, czyli w ten sposób jest dobrze:  
+Switch TP-Link też zresetować (przywracając ustawienia fabryczne - wcisnąć przycisk na tylnej sciance). Ważne jest, aby nie było ustawionych vlanów w zakładce VLAN->802.1Q VLAN, czyli w ten sposób jak poniżej jest dobrze (w przeciwnym razie VLANy należy usunąć):  
 ![](img/tplink-factory.png)
+### Uwaga: ###
+**W naszych ruterach TP-Link, po przywróceniu ustawień fabrycznych, logujemy się jako user=admin oraz passwd=admin i przy pierwszym logowaniu wymuszana jest zmiana co najmniej hasła!**
 
 ## Ustawić wstępnie router
-Izolujemy sieć WiFi od sieci providerskiej ethernet
+Izolujemy sieć WiFi od fizycznej sieci dostawcy (_providerskiej_) Ethernet
 Przydzielamy inną podsieć dla bridge `br1` wewnątrz routera, do którego będą podłączone urządzenia w sieci WiFi.
 W panelu routera w zakładce Basic->Network należy stworzyć bridge `br1` i przypisać go do WiFi w zakładce Advanced->Virtual Wireless.  
 ![](img/wifi-bridge-linksys.png)
