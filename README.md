@@ -23,21 +23,21 @@ Fizyczna struktura sieciowa klastra
                WAN
 ```
 
-Wszystkie hosty (Raspberry Pi) klastra mają interfejs fizyczny podłączony do switcha, a port eth0 dowiązany do wirtualnego bridge wewnątrz Raspberry Pi w celu uzyskania dwóch portów, tutaj veth0 i veth1. Wynika to z tego, że co najmniej dwa porty są wymagane przez używany w projekcie instalator Kolla-Ansible. Ponadto każdy host Raspberry Pi jest podłączony po WiFi do routera jako połączenie zapasowe na wypadek odcięcia się przy kombinowaniu nad główną siecią. Ruter ten separuje też infrastrukturę mini-datacenter od reszty sieci (domowej/akademika, etc.).
+Wszystkie hosty (Raspberry Pi) klastra mają interfejs fizyczny podłączony do switcha, a port eth0 dowiązany do wirtualnego bridge wewnątrz Raspberry Pi w celu uzyskania dwóch portów, tutaj veth0 i veth1 (jeden z tych interfejsów przejmie adres IP z sieci lokalnej - to adresy 192.168.1.6x na rysunku powyżej). Wynika to z tego, że co najmniej dwa porty są wymagane przez używany w projekcie instalator Kolla-Ansible. Ponadto każdy host Raspberry Pi jest podłączony po WiFi do routera jako połączenie zapasowe na wypadek odcięcia się przy kombinowaniu nad główną siecią. Ruter ten separuje też infrastrukturę mini-datacenter od reszty sieci (domowej/akademika, etc.). Szczegóły te przedstawiono na rysunku poniżej.
 
 ```
-Zgodnie z powyższym, sieciówka każdego hosta klastra w aspekcie OpenStack (z pominięciem WiFi) wygląda następująco:
+Zgodnie z powyższym, sieciówka każdego hosta klastra w aspekcie OpenStack wygląda następująco:
 
 192.168.1.6x/24   bez adresu IP (tego chce Kolla-Ansible)
   +---------+       +---------+
-  |  veth0  |       |  veth1  |    interfejsy wirtualne dla OpenStack (jeden z nich dostanie adres IP z sieci lokalnej)
+  |  veth0  |       |  veth1  |    interfejsy wirtualne dla OpenStack (jeden z nich dostanie adres IP z sieci lokalnej - widoczny na poprzednim rysunku)
   +---------+       +---------+
        |   veth  pairs   |
   +---------+       +---------+
   | veth0br |       | veth1br |
   +---------+       +---------+
      +-┴-----------------┴-+
-     |        brmux        | # 192.168.1.6x/24 ten bridge docelowo nie musi mieć nadanego adresu IP
+     |        brmux        | # ten bridge docelowo nie musi mieć nadanego adresu IP
      +----------┬----------+
            +---------+
            |  eth0   |    fizyczny iterface RbPi
