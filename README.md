@@ -1,6 +1,6 @@
 # slcd-openstack
 
-Tworzymy mini-datacenter z użyciem minikomputerów Raspberry Pi i oprogramowania Openstack.
+Tworzymy mini-datacenter z użyciem minikomputerów Raspberry Pi i oprogramowania Openstack. Ogólny schemat seciowy naszego DC przedstawiono na rysunku poniżej. W każdym konkretnym przypadku adresy IP trzeba będzie dostosować do własnego środowiska sieciowego. Zaznaczona na rysunku sieć VLAN reprezentuje tzw. fizyczna _sieć dostawcy_ w OpenStack (ang. _provider physical network_) - o sieciach dostawców dowiemy się więcej w stosownym czasie.
 
 ```
 Fizyczna struktura sieciowa klastra
@@ -44,4 +44,5 @@ Zgodnie z powyższym, sieciówka każdego hosta klastra w aspekcie OpenStack wyg
            +---------+
 ```
 
-## Uwaga: Instrukcje instalacyjne są zawarte w pliku poradnik.md. Wskazówki na okoliczność występowania problemów przedstawiono w pliku problemy.md.
+## Uwaga: ##
+** Instrukcje instalacyjne są zawarte w pliku poradnik.md. Wskazówki na okoliczność występowania problemów przedstawiono w pliku problemy.md. **
