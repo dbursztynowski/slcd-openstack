@@ -3,8 +3,11 @@
 ## Uwaga: ##
 **W niniejszym dokumnecie przedstawiono zarys projektu. Instrukcje instalacyjne są zawarte w pliku poradnik.md. Wskazówki na okoliczność występowania problemów przedstawiono w pliku problemy.md.**
 
+## Cel i zasady ## 
+
 Tworzymy mini-datacenter (DC) z użyciem minikomputerów Raspberry Pi i oprogramowania Openstack. Celem jest zapoznanie się z podstawami administrowania DC (na przykładzie OpenStack) ze szczególnycm uwzględnieniem aspektów sieciowych (konfigurowanie środowiska sieciowego DC). Każdy zespół otrzynuje egzemplarz klastra (4xRbPi + switch TP-Link + ruter WiFi), na którym konfiguruje środowisko OpenStack z wykorzystaniem pakietu Kolla-Ansible. Możliwa jest praca zdalna z dostępem do klastra przez sieć VPN (korzystamy np. z aplikacji Zero-Tier).
 
+## Architektura DC ##
 Ogólny schemat sieciowy naszego DC przedstawiono na rysunku poniżej. W każdym konkretnym przypadku adresy IP trzeba będzie dostosować do własnego środowiska sieciowego. Zaznaczona na rysunku sieć VLAN reprezentuje tzw. fizyczną _sieć dostawcy_ w OpenStack (ang. _provider physical network_) - o sieciach dostawców dowiemy się więcej w stosownym czasie.
 
 ```
