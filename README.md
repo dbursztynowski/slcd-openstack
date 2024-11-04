@@ -1,6 +1,6 @@
 # slcd-openstack
 
-Tworzymy mini-datacenter z użyciem minikomputerów Raspberry Pi i oprogramowania Openstack. Ogólny schemat seciowy naszego DC przedstawiono na rysunku poniżej. W każdym konkretnym przypadku adresy IP trzeba będzie dostosować do własnego środowiska sieciowego. Zaznaczona na rysunku sieć VLAN reprezentuje tzw. fizyczna _sieć dostawcy_ w OpenStack (ang. _provider physical network_) - o sieciach dostawców dowiemy się więcej w stosownym czasie.
+Tworzymy mini-datacenter z użyciem minikomputerów Raspberry Pi i oprogramowania Openstack. Ogólny schemat sieciowy naszego DC przedstawiono na rysunku poniżej. W każdym konkretnym przypadku adresy IP trzeba będzie dostosować do własnego środowiska sieciowego. Zaznaczona na rysunku sieć VLAN reprezentuje tzw. fizyczną _sieć dostawcy_ w OpenStack (ang. _provider physical network_) - o sieciach dostawców dowiemy się więcej w stosownym czasie.
 
 ```
 Fizyczna struktura sieciowa klastra
@@ -23,7 +23,7 @@ Fizyczna struktura sieciowa klastra
                WAN
 ```
 
-Wszystkie hosty (Raspberry Pi) klastra mają interfejs fizyczny podłączony do switcha, a port eth0 dowiązany do wirtualnego bridge wewnątrz Raspberry Pi w celu uzyskania dwóch portów, tutaj veth0 i veth1 (jeden z tych interfejsów przejmie adres IP z sieci lokalnej - to adresy 192.168.1.6x na rysunku powyżej). Wynika to z tego, że co najmniej dwa porty są wymagane przez używany w projekcie instalator Kolla-Ansible. Ponadto każdy host Raspberry Pi jest podłączony po WiFi do routera jako połączenie zapasowe na wypadek odcięcia się przy kombinowaniu nad główną siecią. Ruter ten separuje też infrastrukturę mini-datacenter od reszty sieci (domowej/akademika, etc.). Szczegóły te przedstawiono na rysunku poniżej.
+Wszystkie hosty (Raspberry Pi) klastra mają interfejs fizyczny podłączony do switcha TP-Link, a port eth0 jest dowiązany do wirtualnego bridge wewnątrz Raspberry Pi w celu uzyskania dwóch interfejsów wirtualnych, tutaj veth0 i veth1 (jeden z tych interfejsów przejmie adres IP z sieci lokalnej - to adresy 192.168.1.6x na rysunku powyżej). Wynika to z tego, że używany w projekcie instalator Kolla-Ansible wymaga, aby każdy host w klastrze OpenStack miał co najmniej dwa interfejsy. Ponadto każdy host Raspberry Pi jest podłączony przez WiFi do routera jako połączenie zapasowe na wypadek "odcięcia" się przy konfigurowaniu głównej sieci naszego DC. Ruter ten separuje też infrastrukturę mini-datacenter od reszty sieci (domowej/akademika, etc.). Szczegóły te przedstawiono graficznie na rysunku poniżej, a dokładne opisy konfiguracyjne są zawarte w zasadniczej części poradnika.
 
 ```
 Zgodnie z powyższym, sieciówka każdego hosta klastra w aspekcie OpenStack wygląda następująco:
