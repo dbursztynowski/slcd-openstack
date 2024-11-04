@@ -286,7 +286,8 @@ systemctl restart systemd-networkd
 ```
 
 Po tych komendach RbPi będzie do czasu dodania VLANów na switchu dostępne tylko przez swoje IP WiFi i to tylko dla komputerów podłączonych przez WiFi, nie przez ethernet.
-Dodajemy VLANy w panelu switcha w dwóch miejscach.
+
+Dodajemy VLANy w panelu switcha TP-Link w dwóch miejscach.
 
 Najpierw w zakładce VLAN -> 802.1Q VLAN.  
 Włączamy obsługę vlanów przełącznikiem Enable na górze, a potem dodajemy pojedynczo konkretne vlany na portach.
