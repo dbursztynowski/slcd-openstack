@@ -5,7 +5,7 @@
 
 Zresetować je do ustawień fabrycznych
 
-Panel routera znajduje się na IP http://192.168.1.1/  
+Panel routera znajduje się na IP: http://192.168.1.1/  
 login:hasło root:admin  
 
 Żeby wejść na panel switcha trzeba sprawdzić w panelu routera w Status->Device List jakie switch dostał IP:
