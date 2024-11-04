@@ -1,7 +1,7 @@
 # Wstępne przygotowanie routera i switcha
 
 ### Uwaga: ###
-**Wszystkie adresy IP należy dostosować do swojego środowiska sieciowego. Podane w instrukcji dane logowania (poza fabrycznymi dla urządzeń) są przykłądowe.**
+**Wszystkie adresy IP należy dostosować do swojego środowiska sieciowego. Podane w instrukcji dane logowania (poza fabrycznymi dla urządzeń) są przykładowe.**
 
 Zresetować je do ustawień fabrycznych
 
@@ -232,7 +232,7 @@ ustawić w pliku z hasłami, czyli /etc/kolla/passwords.yml, hasło do logowania
 keystone_admin_password: jakies_zapamietywalne_haslo_np_admin
 ```
 
-ustawić kilka ustawień openstacka w pliku /etc/kolla/globals.yml
+wpełnić kilka istotnych ustawień openstacka w pliku /etc/kolla/globals.yml
 ```
 kolla_base_distro: "debian"
 openstack_tag_suffix: "-aarch64"
