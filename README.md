@@ -1,7 +1,7 @@
 # slcd-openstack
 
 ## Uwaga: ##
-**Poniżej przedstawiono zarys prjektu. Instrukcje instalacyjne są zawarte w pliku poradnik.md. Wskazówki na okoliczność występowania problemów przedstawiono w pliku problemy.md.**
+**W niniejszym dokumnecie przedstawiono zarys projektu. Instrukcje instalacyjne są zawarte w pliku poradnik.md. Wskazówki na okoliczność występowania problemów przedstawiono w pliku problemy.md.**
 
 Tworzymy mini-datacenter (DC) z użyciem minikomputerów Raspberry Pi i oprogramowania Openstack. Celem jest zapoznanie się z podstawami administrowania DC (na przykładzie OpenStack) ze szczególnycm uwzględnieniem aspektów sieciowych (konfigurowanie środowiska sieciowego DC). Każdy zespół otrzynuje egzemplarz klastra (4xRbPi + switch TP-Link + ruter WiFi), na którym konfiguruje środowisko OpenStack z wykorzystaniem pakietu Kolla-Ansible. Możliwa jest praca zdalna z dostępem do klastra przez sieć VPN (korzystamy np. z aplikacji Zero-Tier).
 
