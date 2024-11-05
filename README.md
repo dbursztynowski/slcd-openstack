@@ -1,7 +1,7 @@
 # slcd-openstack
 
 ## Uwaga: ##
-**W niniejszym dokumnecie przedstawiono zarys projektu. Instrukcje instalacyjne są zawarte w pliku poradnik.md. Wskazówki na okoliczność występowania problemów przedstawiono w pliku problemy.md.**
+**Poniżej przedstawiono zarys projektu. Bardziej szczegółowe instrukcje instalacyjne są zawarte w pliku poradnik.md. Wskazówki na okoliczność występowania problemów przedstawiono w pliku problemy.md.**
 
 ## Cel i zasady ## 
 
