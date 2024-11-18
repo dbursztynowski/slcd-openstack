@@ -30,8 +30,8 @@ Switch TP-Link też zresetować (przywracając ustawienia fabryczne - wcisnąć 
 Izolujemy sieć WiFi od fizycznej sieci dostawcy (_providerskiej_) Ethernet
 Przydzielamy inną podsieć dla bridge `br1` wewnątrz routera, do którego będą podłączone urządzenia w sieci WiFi.
 W panelu routera w zakładce Basic->Network należy stworzyć bridge `br1` i przypisać go do WiFi w zakładce Advanced->Virtual Wireless.  
-![](img/wifi-bridge-linksys.png)
 ![](img/bridge-linksys.png)
+![](img/wifi-bridge-linksys.png)
 
 Włączamy w routerze funkcję routowania między podsieciami 192.168.1.0/24 i 10.0.1.0/24.  
 W produkcyjnym datacenter to słaby pomysł i można tą funkcję na koniec konfiguracji wyłączyć, ale tu potrzebujemy z naszego komputera dostępu jednocześnie do interfejsów WiFi RbPi i do panela switcha.  
