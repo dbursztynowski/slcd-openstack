@@ -211,7 +211,7 @@ sudo tee /etc/kolla/config/nova/nova-compute.conf << EOT
 resume_guests_state_on_host_boot = true
 EOT
 
-sudo mkdir /etc/kolla/config/neutron
+sudo mkdir -p /etc/kolla/config/neutron
 
 sudo tee /etc/kolla/neutron-server/ml2_conf.ini << EOT
 [ml2]
