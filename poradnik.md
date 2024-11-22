@@ -168,7 +168,7 @@ instalowanie potrzebnych rzeczy
 ```bash
 sudo apt remove unattended-upgrades -y
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y ca-certificates curl gnupg sshpass git python3-dev libffi-dev gcc libssl-devpython3-venv
+sudo apt install -y ca-certificates curl gnupg sshpass git python3-dev libffi-dev gcc libssl-dev python3-venv
 sudo install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
