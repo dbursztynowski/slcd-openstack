@@ -56,8 +56,8 @@ vlan1  | veth0br |       | veth1br | vlan2, vlan1
 
 - vlan2 (numer przykładowy) to VLAN tagowany dla sieci providerskiej OpenStack, obejmuje switch tp-link i wyszystkie
   interfejesy/bidge na drodze aż po veth1 (ale na łączu veth0br-veth0 vlan2 nie ma); vlan2 zostanie zadeklarowany w pliku
-  konfiguracyjnym OpenStac'a ml2
+  konfiguracyjnym OpenStack dla Neutrona, ml2_conf.ini.
 - VLAN nietagowany (vlan1) jest obecny wszędzie, począwszy od urządzenia linksys. Dla podniesienia stopnia izolacji ruchu
   mógłby to też być VLAN tagowany, inny niż vlan2, i wtedy VLAN ten musiałby być zakończony (zdjęty tag) w urządzeniach
-  brmux (czyli do veth0 zawsze dotrze VLAN nietagowany)
+  brmux (czyli do veth0 zawsze dotrze VLAN nietagowany).
 ```
