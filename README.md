@@ -15,20 +15,22 @@ Fizyczna struktura sieciowa klastra
        +-----------------+-----------------+-----------------+-------------------+
        | wlan0           | wlan0           | wlan0           | wlan0             |
   +---------+       +---------+       +---------+       +---------+              |
-  |  ost61  |       |  ost62  |       |  ost63  |       |  ost64  |              |
+  |  ost61  |       |  ost62  |       |  ost63  |       |  ost64  |     vlan1    |
   +---------+       +---------+       +---------+       +---------+              |
-       | 192.168.1.61    | 192.168.1.62    | 192.168.1.63    | 192.168.1.64      |
-       | vlan 2          |vlan 2           |vlan 2           |vlan 2             |
-     +---------------------------------------------------------+                 |
+       | 192.168.1.61    | 192.168.1.62    | 192.168.1.63    | 192.168.1.64      | <- adresy IP sda przypidsane interfejsom fizycznym RPi  
+       | vlan2, vlan1    |vlan2, vlan1     |vlan2, vlan1     |vlan2              |    przed koniguracją malin dla OpenStack; po konfiguracji 
+     +---------------------------------------------------------+                 |    adresy te będą przypisane wirtualnym urządzeniom w poszczegłonych malinach - por. rys poniżej
      |                      switch tp-link                     |                 |
      +---------------------------------------------------------+                 |
                 |                                                                |
-                |                                                                |
+      vlan1     |                                                                |
      +--------------------------------+            wifi FreshTomato09            |
      |   router linksys 192.168.1.1   |------------------------------------------+
      +--------------------------------+            10.0.1.0/24 dhcp
                 |
                WAN
+- vlan2 (numer przykładowy) to VLAN tagowany, obejmuje switch tp-link i wyszystkie interfejesy/bidge na drodze aż po urządzenia veth1 w poszczególnych RPi (ale na łączu veth0br-veth0 vlan2 nie ma, por.rys. poniżej)
+- VLAN to nietagowany (vlan1) jest obecny wszędzie począwszy od urządzenia linksys
 ```
 
 Wszystkie hosty (Raspberry Pi) klastra mają interfejs fizyczny podłączony do switcha TP-Link, a port eth0 jest dowiązany do wirtualnego bridge wewnątrz Raspberry Pi w celu uzyskania dwóch interfejsów wirtualnych, tutaj veth0 i veth1 (jeden z tych interfejsów przejmie adres IP z sieci lokalnej - to adresy 192.168.1.6x na rysunku powyżej). Wynika to z tego, że używany w projekcie instalator Kolla-Ansible wymaga, aby każdy host w klastrze OpenStack miał co najmniej dwa interfejsy. Ponadto każdy host Raspberry Pi jest podłączony przez WiFi do routera jako połączenie zapasowe na wypadek "odcięcia" się przy konfigurowaniu głównej sieci naszego DC. Ruter ten separuje też infrastrukturę mini-datacenter od reszty sieci (domowej/akademika, etc.). Szczegóły te przedstawiono graficznie na rysunku poniżej, a dokładne opisy konfiguracyjne są zawarte w dokumencie poradnik.md.
@@ -36,18 +38,21 @@ Wszystkie hosty (Raspberry Pi) klastra mają interfejs fizyczny podłączony do 
 ```
 Zgodnie z powyższym, sieciówka każdego hosta klastra w aspekcie OpenStack wygląda następująco:
 
-192.168.1.6x/24   bez adresu IP (tego chce Kolla-Ansible)
-  +---------+       +---------+
-  |  veth0  |       |  veth1  |    interfejsy wirtualne dla OpenStack (jeden z nich dostanie adres IP z sieci lokalnej - widoczny na poprzednim rysunku)
-  +---------+       +---------+
-       |   veth  pairs   |
-  +---------+       +---------+
-  | veth0br |       | veth1br |
-  +---------+       +---------+
-     +-┴-----------------┴-+
-     |        brmux        | # ten bridge docelowo nie musi mieć nadanego adresu IP
-     +----------┬----------+
-           +---------+
-           |  eth0   |    fizyczny iterface RbPi
-           +---------+
+     192.168.1.6x/24   bez adresu IP (tego chce Kolla-Ansible)
+       +---------+       +---------+    vlan2, vlan1 - na veth1 są tagowany vlan2 i nietagowany vlan1; na veth0 jest tylko vlan1
+vlan1  |  veth0  |       |  veth1  |    <- interfejsy wirtualne; w modelu OpenStack odpowiadają fizycznym inerfejsom 
+       +---------+       +---------+       serwera (jeden z nich dostanie adres IP z sieci lokalnej)
+            |   veth  pairs   |
+       +---------+       +---------+
+vlan1  | veth0br |       | veth1br | vlan2, vlan1
+       +---------+       +---------+
+          +-┴-----------------┴-+
+          |        brmux        | # ten bridge docelowo nie musi mieć nadanego adresu IP
+          +----------┬----------+   vlan2
+                +---------+         vlan1
+                |  eth0   |    fizyczny iterface RbPi
+                +---------+
+
+- vlan2 (numer przykładowy) to VLAN tagowany, obejmuje switch tp-link i wyszystkie interfejesy/bidge na drodze aż po veth1 (ale na łączu veth0br-veth0 vlan2 nie ma)
+- VLAN nietagowany (vlan1) jest obecny wszędzie, począwszy od urządzenia linksys. Dla podniesienia stopnia izolacji ruchu mógłby to też być VLAN tagowany, inny niż vlan2, i wtedy VLAN ten musiałby być zakończony (zdjęty tag) w urządzeniach brmux (czyli do veth0 zawsze dotrze VLAN nietagowany)
 ```
