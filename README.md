@@ -29,7 +29,8 @@ Fizyczna struktura sieciowa klastra
      +--------------------------------+            10.0.1.0/24 dhcp
                 |
                WAN
-- vlan2 (numer przykładowy) to VLAN tagowany, obejmuje switch tp-link i wyszystkie interfejesy/bidge na drodze aż po urządzenia veth1 w poszczególnych RPi (ale na łączu veth0br-veth0 vlan2 nie ma, por.rys. poniżej)
+- vlan2 (numer przykładowy) to VLAN tagowany, obejmuje switch tp-link i wyszystkie interfejesy/bidge na drodze aż po
+urządzenia veth1 w poszczególnych RPi (ale na łączu veth0br-veth0 vlan2 nie ma, por.rys. poniżej)
 - VLAN to nietagowany (vlan1) jest obecny wszędzie począwszy od urządzenia linksys
 ```
 
@@ -38,21 +39,25 @@ Wszystkie hosty (Raspberry Pi) klastra mają interfejs fizyczny podłączony do 
 ```
 Zgodnie z powyższym, sieciówka każdego hosta klastra w aspekcie OpenStack wygląda następująco:
 
-     192.168.1.6x/24   bez adresu IP (tego chce Kolla-Ansible)
-       +---------+       +---------+    vlan2, vlan1 - na veth1 są tagowany vlan2 i nietagowany vlan1; na veth0 jest tylko vlan1
-vlan1  |  veth0  |       |  veth1  |    <- interfejsy wirtualne; w modelu OpenStack odpowiadają fizycznym inerfejsom 
-       +---------+       +---------+       serwera (jeden z nich dostanie adres IP z sieci lokalnej)
-            |   veth  pairs   |
+     192.168.1.6x/24    bez adresu IP <- tego chce Kolla-Ansible jako stan początkowy przed instalacją
+       +---------+       +---------+     vlan2, vlan1 - na veth1 są obecne: tagowany vlan2 i nietagowany vlan1; na veth0 jest tylko vlan1
+vlan1  |  veth0  |       |  veth1  |  <- interfejsy wirtualne; w modelu OpenStack odpowiadają fizycznym interfejsom serwera (dla veth0 
+       +---------+       +---------+     skonfigurujemy w netplan adres IP z sieci lokalnej, ale już podczas instalacji OpenStack adres ten 
+            |   veth  pairs   |          zostanie przeniesiony na dodatkowo utworzony bridge br-ext)
        +---------+       +---------+
 vlan1  | veth0br |       | veth1br | vlan2, vlan1
        +---------+       +---------+
           +-┴-----------------┴-+
           |        brmux        | # ten bridge docelowo nie musi mieć nadanego adresu IP
-          +----------┬----------+   vlan2
-                +---------+         vlan1
-                |  eth0   |    fizyczny iterface RbPi
+          +----------┬----------+   vlan2, vlan1
+                +---------+ 
+                |  eth0   |    fizyczny iterface RbPi, docelowo bez adresu IP
                 +---------+
 
-- vlan2 (numer przykładowy) to VLAN tagowany, obejmuje switch tp-link i wyszystkie interfejesy/bidge na drodze aż po veth1 (ale na łączu veth0br-veth0 vlan2 nie ma)
-- VLAN nietagowany (vlan1) jest obecny wszędzie, począwszy od urządzenia linksys. Dla podniesienia stopnia izolacji ruchu mógłby to też być VLAN tagowany, inny niż vlan2, i wtedy VLAN ten musiałby być zakończony (zdjęty tag) w urządzeniach brmux (czyli do veth0 zawsze dotrze VLAN nietagowany)
+- vlan2 (numer przykładowy) to VLAN tagowany dla sieci providerskiej OpenStack, obejmuje switch tp-link i wyszystkie
+  interfejesy/bidge na drodze aż po veth1 (ale na łączu veth0br-veth0 vlan2 nie ma); vlan2 zostanie zadeklarowany w pliku
+  konfiguracyjnym OpenStac'a ml2
+- VLAN nietagowany (vlan1) jest obecny wszędzie, począwszy od urządzenia linksys. Dla podniesienia stopnia izolacji ruchu
+  mógłby to też być VLAN tagowany, inny niż vlan2, i wtedy VLAN ten musiałby być zakończony (zdjęty tag) w urządzeniach
+  brmux (czyli do veth0 zawsze dotrze VLAN nietagowany)
 ```
