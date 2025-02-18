@@ -19,8 +19,8 @@ Fizyczna struktura sieciowa klastra
   +---------+       +---------+       +---------+       +---------+              |
        | 192.168.1.61    | 192.168.1.62    | 192.168.1.63    | 192.168.1.64      | <- adresy IP sda przypidsane interfejsom fizycznym RPi  
        | vlan2, vlan1    |vlan2, vlan1     |vlan2, vlan1     |vlan2              |    przed koniguracją malin dla OpenStack; po konfiguracji 
-     +---------------------------------------------------------+                 |    adresy te będą przypisane wirtualnym urządzeniom w poszczegłonych malinach - por. rys poniżej
-     |                      switch tp-link                     |                 |
+     +---------------------------------------------------------+                 |    adresy te będą przypisane wirtualnym 
+     |                      switch tp-link                     |                 |    urządzeniom w poszczegłonych malinach - por. rys poniżej
      +---------------------------------------------------------+                 |
                 |                                                                |
       vlan1     |                                                                |
