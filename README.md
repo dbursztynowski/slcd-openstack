@@ -15,12 +15,12 @@ Fizyczna struktura sieciowa klastra
        +-----------------+-----------------+-----------------+-------------------+
        | wlan0           | wlan0           | wlan0           | wlan0             |
   +---------+       +---------+       +---------+       +---------+              |
-  |  ost61  |       |  ost62  |       |  ost63  |       |  ost64  |     vlan1    |
+  |  ost61  |       |  ost62  |       |  ost63  |       |  ost64  |              |
   +---------+       +---------+       +---------+       +---------+              |
-       | 192.168.1.61    | 192.168.1.62    | 192.168.1.63    | 192.168.1.64      | <- adresy IP sda przypidsane interfejsom fizycznym RPi  
-       | vlan2, vlan1    |vlan2, vlan1     |vlan2, vlan1     |vlan2              |    przed koniguracją malin dla OpenStack; po konfiguracji 
-     +---------------------------------------------------------+                 |    adresy te będą przypisane wirtualnym 
-     |                      switch tp-link                     |                 |    urządzeniom w poszczegłonych malinach - por. rys poniżej
+       | 192.168.1.61    | 192.168.1.62    | 192.168.1.63    | 192.168.1.64      | <- adresy IP są przypisane interfejsom fizycznym RPi  
+       | vlan2, vlan1    |vlan2, vlan1     |vlan2, vlan1     |vlan2 vlan1        |    przed koniguracją malin dla OpenStack; po konfiguracji 
+     +---------------------------------------------------------+                 |    adresy te będą przypisane wirtualnym urządzeniom
+     |                      switch tp-link                     |                 |    w poszczególonych malinach - por. rys. poniżej
      +---------------------------------------------------------+                 |
                 |                                                                |
       vlan1     |                                                                |
@@ -54,7 +54,7 @@ vlan1  | veth0br |       | veth1br | vlan2, vlan1
                 |  eth0   |    fizyczny iterface RbPi, docelowo bez adresu IP
                 +---------+
 
-- vlan2 (numer przykładowy) to VLAN tagowany dla sieci providerskiej OpenStack, obejmuje switch tp-link i wyszystkie
+- vlan2 (numer przykładowy) to VLAN tagowany dla sieci providerskiej OpenStack, obejmuje switch tp-link i wszystkie
   interfejesy/bidge na drodze aż po veth1 (ale na łączu veth0br-veth0 vlan2 nie ma); vlan2 zostanie zadeklarowany w pliku
   konfiguracyjnym OpenStack dla Neutrona, ml2_conf.ini.
 - VLAN nietagowany (vlan1) jest obecny wszędzie, począwszy od urządzenia linksys. Dla podniesienia stopnia izolacji ruchu
