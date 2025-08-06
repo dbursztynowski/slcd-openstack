@@ -6,17 +6,21 @@ Name=veth1br
 [Network]
 Bridge=brmux
 
-# dolaczenie do interfejsu vlan1 sieci flat provider network z 
-# adresacja z Linksys na potrzeby external network; tak samo 
-# bedzie w veth0br na potrzeny network-interface
-# z VLAN=2 do veth0 bedzie dostarczona siec nietagowana (z domyslnym VLAN=1)
+# - dolaczenie do interfejsu vlan1 sieci o statusie flat provider network z 
+# adresacja IP z zakresu Linksys na potrzeby "external network" OpenStack'a; 
+# - z VLAN=2 do veth1 bedzie zatem dostarczona siec nietagowana (z domyslnym VLAN=1)
+# - analogicznie jest dla w veth0br i veth0 na potrzeby network-interface
+# - ponizej, PVID=2 powoduje ustawianie VLAN=2 każdej przychodzacej nietagowanej ramce,
+# a EgressUntagged=2 wymusza, że każda ramka tagowana z VLAN=2 mająca wyjsc tym interfejsem
+# ma zdejmowany tag i wychodzi na zewnatrz bridge'a jako nietagowana (kierunek
+# przychodząca/wychodząca zawsze określamy patrzac z perspektywy switcha/bridgea)
 [BridgeVLAN]
 PVID=2
 EgressUntagged=2
 
-# na potrzeby wewnetrznych sieci OpenStack typu VLAN provider network
-# (i ew. na potrzeby sieci tenanckich VLAN - o ile beda dozwolone w 
+# - na potrzeby wewnetrznych sieci OpenStack typu VLAN provider network realizowanych
+# jako VLANy tagowane (i ew. na potrzeby sieci tenanckich VLAN - o ile beda dozwolone w 
 # pliku ml.2 - por. konfiguracje dla kolla-ansible)
-# ponizsze VLANy beda dostarczone do veth1 na potrzeby Neutrona
+# - ponizsze VLANy beda dostarczone (beda dochodzić) do veth1 na potrzeby Neutrona
 [BridgeVLAN]
-VLAN=100-101
+VLAN=100-104
