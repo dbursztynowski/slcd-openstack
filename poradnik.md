@@ -21,10 +21,10 @@ Po resecie powinny być takie (przykłądowe) ustawienia routera:
 ### Uwaga: ###
 **W niektórych Linksysach ustawienia mogą być fabryczne, typowo user=root, passwd=admin.**
 
-Switch TP-Link też zresetować (przywracając ustawienia fabryczne - wcisnąć przycisk na tylnej sciance). Ważne jest, aby nie było ustawionych vlanów w zakładce VLAN->802.1Q VLAN, czyli w ten sposób jak poniżej jest dobrze (w przeciwnym razie VLANy należy usunąć):  
+Switch TP-Link można też zresetować (przywracając ustawienia fabryczne - wcisnąć przycisk na tylnej sciance). Ważne jest, aby nie było ustawionych vlanów w zakładce VLAN->802.1Q VLAN, czyli w ten sposób jak poniżej jest dobrze (w przeciwnym razie VLANy należy usunąć):  
 ![](img/tplink-factory.png)
 ### Uwaga: ###
-**W naszych ruterach TP-Link, po przywróceniu ustawień fabrycznych, logujemy się jako user=admin, passwd=admin i przy pierwszym logowaniu wymuszana jest zmiana co najmniej hasła!**
+**W naszych ruterach TP-Link, po przywróceniu ustawień fabrycznych, logujemy się jako user=admin, passwd=admin i przy pierwszym logowaniu wymuszana jest zmiana hasła!**
 
 ## Ustawić wstępnie router
 Izolujemy sieć WiFi od fizycznej sieci dostawcy (_providerskiej_) Ethernet
