@@ -1,3 +1,7 @@
+# Definicje tagowanych sieci VLAN
+# korzystamy z plików systemd, bo obecnie VLANów tagowanych nie da się
+# ustawic w netplan (moze kiedys to sie zmieni)
+
 [Match]
 Name=eth0
 #Type=ether
