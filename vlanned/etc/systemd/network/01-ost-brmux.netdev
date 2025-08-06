@@ -1,5 +1,5 @@
-# Definujemy w networkd.netdev ze wzgledu na ustawienie VLANFiltering=true, 
-# bo i tak brmux wystepuje w pliku netplan
+# Chociaz brmux występuje w pliku netplan, to definujemy brmux w networkd.netdev ze wzgledu na
+# wymog ustawienia VLANFiltering=true, czego (przynajmniej obecnie) nie da się ustawic w netplan.
 
 [NetDev]
 Name=brmux
