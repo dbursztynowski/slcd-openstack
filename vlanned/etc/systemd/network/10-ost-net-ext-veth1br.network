@@ -10,9 +10,9 @@ Name=veth1br
 Bridge=brmux
 
 # - dolaczenie do interfejsu vlan1 sieci o statusie flat provider network z 
-# adresacja IP z zakresu Linksys na potrzeby "external network" OpenStack'a; 
-# - z VLAN=2 do veth1 bedzie zatem dostarczona siec nietagowana (z domyslnym VLAN=1)
-# - analogicznie jest dla w veth0br i veth0 na potrzeby network-interface
+# adresacja IP z zakresu rutowalnego w Linksys na potrzeby "external network" OpenStack'a; 
+# - z tagowanego segmentu VLAN=2 do veth1 bedzie zatem dostarczona siec nietagowana (z domyslnym VLAN=1)
+# - uwaga: analogicznie jest dla w veth0br i veth0 na potrzeby network-interface
 # - ponizej, PVID=2 powoduje dodanie znacznika VLAN=2 do każdej przychodzacej nietagowanej
 # ramki, a EgressUntagged=2 wymusza, że każda ramka tagowana z VLAN=2 mająca w switchu wyjsc
 # tym interfejsem ma zdejmowany tag i wychodzi na zewnatrz switcha jako nietagowana (kierunek
