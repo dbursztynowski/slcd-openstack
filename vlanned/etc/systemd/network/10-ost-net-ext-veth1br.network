@@ -18,7 +18,7 @@ Bridge=brmux
 # tym interfejsem ma zdejmowany tag i wychodzi na zewnatrz switcha jako nietagowana (kierunek
 # przesyłu ramki przychodząca/wychodząca zawsze określamy patrzac z perspektywy switcha/bridgea)
 # - uwaga: w istocie można by w ogle nie uzywac VLAN=2 i wykorzystac zwykly eth nietagowany, ale my
-# wprowadzamy VETH=2 go w celach edukacyjnych, aby na jego tle lepiej wyeksponowac sieci dostawcow
+# wprowadzamy VLAN=2 w celach edukacyjnych, aby na jego tle lepiej wyeksponowac sieci dostawcow
 # realizowane jako VLAN tagowane
 [BridgeVLAN]
 PVID=2
