@@ -12,10 +12,10 @@ Bridge=brmux
 
 # w celu dociągnięcia do veth0 sieci nietagowanej z adresacja IP rutowalną w Linksys na
 # potrzeby sieci management/dashboard oraz sieci tenanckich overlay (np. VXLANowych)
+# - wynik: z sieci tagowanej VLAN=2 do veth0 bedzie dostarczona siec nietagowana (domyslny VLAN=1)
 # - uwaga: analogicznie jest w veth1br, ale na potrzeby sieci provider i ew. sieci tenanckich w
-# technice VLAN (o ile beda dozwolone w pliku ml.2 - por. konfiguracje dla kolla-ansible)
-# - z sieci tagowanej VLAN=2 do veth0 (i do veth1 również) bedzie dostarczona siec
-# nietagowana (domyslny VLAN=1)
+# technice VLAN (o ile sieci tenanckie VLAN beda dozwolone w pliku ml.2 - por. konfiguracje dla
+# kolla-ansible)
 # - ponizej, PVID=2 powoduje dodanie znacznika VLAN=2 do każdej przychodzacej nietagowanej
 # ramki, a EgressUntagged=2 wymusza, że każda ramka tagowana z VLAN=2 mająca w switchu wyjsc
 # tym interfejsem ma zdejmowany tag i wychodzi na zewnatrz switcha jako nietagowana (kierunek
