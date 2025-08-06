@@ -1,7 +1,9 @@
-# Definujemy w networkd.netdev ze wzgledu na ustawienie VLANFiltering=true, 
+# - Definiujemy "device" w networkd.netdev ze wzgledu na ustawienie VLANFiltering=true, 
 # a brmux przestaje byc potrzebny w pliku netplan (w istocie jego zdefiniowanie
 # równiez tam spowodowałoby niepoprawną konfigurację sieciową - por. opis
 # zawarty w pliku netplan/50-cloud-init.yaml)
+# - Ta definicja tworzy urzadzenie brmux, ale pozostaje ono nieaktywne (Down). Podnosimy je
+# w pliku brmux.network.
 
 [NetDev]
 Name=brmux
