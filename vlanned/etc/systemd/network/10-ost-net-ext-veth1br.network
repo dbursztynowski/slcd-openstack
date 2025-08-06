@@ -1,4 +1,7 @@
-# definicje na potrzeby network-external-interface wg kolla-ansible
+# Definicje tagowanych sieci VLAN
+# - korzystamy z plików systemd, bo obecnie VLANów tagowanych nie da się
+# ustawic w netplan (moze kiedys to sie zmieni)
+# - definicje na potrzeby network-external-interface wg kolla-ansible
 
 [Match]
 Name=veth1br
