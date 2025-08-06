@@ -1,5 +1,7 @@
 # Definujemy w networkd.netdev ze wzgledu na ustawienie VLANFiltering=true, 
-# bo i tak brmux wystepuje w pliku netplan
+# a brmux przestaje byc potrzebny w pliku netplan (w istocie jego zdefiniowanie
+# równiez tam spowodowałoby niepoprawną konfigurację sieciową - por. opis
+# zawarty w pliku netplan/50-cloud-init.yaml)
 
 [NetDev]
 Name=brmux
