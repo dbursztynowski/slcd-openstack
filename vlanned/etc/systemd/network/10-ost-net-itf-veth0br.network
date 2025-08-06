@@ -7,20 +7,23 @@ Name=veth0br
 [Network]
 Bridge=brmux
 
-# dolaczenie do veth0 sieci z adresacja z Linksys na potrzeby sieci management i sieci 
-# tenanckich overlay; tak samo jest w veth1br na potrzeby sieci provider i ew. sieci 
-# tenanckich w technice VLAN
-# z VLAN=2 do veth0 i veth1 bedzie dostarczona siec nietagowana (domyslny VLAN=1)
+# w celu dociągnięcia do veth0 sieci nietagowanej z adresacja IP rutowalną w Linksys na
+# potrzeby sieci management oraz sieci tenanckich overlay (np. VXLANowych)
+# - analogicznie jest w veth1br, ale na potrzeby sieci provider i ew. sieci tenanckich w
+# technice VLAN (o ile beda dozwolone w pliku ml.2 - por. konfiguracje dla kolla-ansible)
+# - z sieci tagowanej VLAN=2 do veth0 (i do veth1 również) bedzie dostarczona siec
+# nietagowana (domyslny VLAN=1)
 [BridgeVLAN]
 PVID=2
 EgressUntagged=2
 
-# ponizsze NIE jest potrzebne dla network-interface veth0, zostawiono tylko dla 
-# celow dydaktycznych - porownawczych
+# UWAGA: ponizsze NIE jest potrzebne dla network-interface veth0, zostawiono tylko dla 
+# celow dydaktycznych - porownawczych, aby zobaczyć, że VLANy dostawcow (providerskie)
+# sa realizowane tylko na veth1 (bo tak jest zorganizowana sieć na poziomie OpenStack)
 
 # na potrzeby wewnetrznych sieci OpenStack typu VLAN provider network
 # (i ew. na potrzeby sieci tenanckich VLAN - o ile beda dozwolone w 
 # pliku ml.2 - por. konfiguracje dla kolla-ansible)
 # ponizsze VLANy beda dostarczone do veth1 na potrzeby Neutrona
 #[BridgeVLAN]
-#VLAN=100-101
+#VLAN=100-104
