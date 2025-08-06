@@ -11,8 +11,8 @@ Bridge=brmux
 
 # - VLAN dla sieci z adresacja network-interface i dla flat provider external network
 # - ten VLAN będzie niewidoczny na poziomie OpenStack - w brmux zostanie zamieniony na
-# VLAN0 (nietagowany) i OpenStack dostanie go jako "flat"
-# - w istocie można by go w oole nie uzywac i wykorzystac zwykly eth nietagowany, ale my
+# VLAN1 (nietagowany) i OpenStack dostanie go jako "flat"
+# - w istocie można by go w ogle nie uzywac i wykorzystac zwykly eth nietagowany, ale my
 # wprowadzamy go w celach edukacyjnych, aby na jego tle lepiej wyeksponowac sieci
 # dostawcow realizowane jako VLAN tagowane
 [BridgeVLAN]
