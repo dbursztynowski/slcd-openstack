@@ -12,7 +12,7 @@ Bridge=brmux
 
 # w celu dociągnięcia do veth0 sieci nietagowanej z adresacja IP rutowalną w Linksys na
 # potrzeby sieci management/dashboard oraz sieci tenanckich overlay (np. VXLANowych)
-# - analogicznie jest w veth1br, ale na potrzeby sieci provider i ew. sieci tenanckich w
+# - uwaga: analogicznie jest w veth1br, ale na potrzeby sieci provider i ew. sieci tenanckich w
 # technice VLAN (o ile beda dozwolone w pliku ml.2 - por. konfiguracje dla kolla-ansible)
 # - z sieci tagowanej VLAN=2 do veth0 (i do veth1 również) bedzie dostarczona siec
 # nietagowana (domyslny VLAN=1)
