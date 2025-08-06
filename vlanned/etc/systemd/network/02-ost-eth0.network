@@ -5,10 +5,16 @@ Name=eth0
 [Network]
 Bridge=brmux
 
-# dla sieci z adresacja network-interface i dla flat provider external network
+# - VLAN dla sieci z adresacja network-interface i dla flat provider external network
+# - ten VLAN będzie niewidoczny na poziomie OpenStack - w brmux zostanie zamieniony na
+# VLAN0 (nietagowany) i OpenStack dostanie go jako "flat"
+# - w istocie można by go w oole nie uzywac i wykorzystac zwykly eth nietagowany, ale my
+# wprowadzamy go w celach edukacyjnych, aby na jego tle lepiej wyeksponowac sieci
+# dostawcow realizowane jako VLAN tagowane
 [BridgeVLAN]
 VLAN=2
 
-# dla sieci VLAN provider network; edukacyjnie, dwa VLANy wystarcza
+# VLANy dla sieci VLAN provider network realizowanych jako VLANy tagowane
+# edukacyjnie - pięć VLANow to az za duzo
 [BridgeVLAN]
-VLAN=100-101
+VLAN=100-104
