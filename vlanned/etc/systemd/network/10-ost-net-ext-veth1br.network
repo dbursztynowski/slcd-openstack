@@ -10,10 +10,10 @@ Bridge=brmux
 # adresacja IP z zakresu Linksys na potrzeby "external network" OpenStack'a; 
 # - z VLAN=2 do veth1 bedzie zatem dostarczona siec nietagowana (z domyslnym VLAN=1)
 # - analogicznie jest dla w veth0br i veth0 na potrzeby network-interface
-# - ponizej, PVID=2 powoduje ustawianie VLAN=2 każdej przychodzacej nietagowanej ramce,
-# a EgressUntagged=2 wymusza, że każda ramka tagowana z VLAN=2 mająca wyjsc tym interfejsem
-# ma zdejmowany tag i wychodzi na zewnatrz bridge'a jako nietagowana (kierunek
-# przychodząca/wychodząca zawsze określamy patrzac z perspektywy switcha/bridgea)
+# - ponizej, PVID=2 powoduje dodanie znacznika VLAN=2 do każdej przychodzacej nietagowanej
+# ramki, a EgressUntagged=2 wymusza, że każda ramka tagowana z VLAN=2 mająca w switchu wyjsc
+# tym interfejsem ma zdejmowany tag i wychodzi na zewnatrz switcha jako nietagowana (kierunek
+# przesyłu ramki przychodząca/wychodząca zawsze określamy patrzac z perspektywy switcha/bridgea)
 [BridgeVLAN]
 PVID=2
 EgressUntagged=2
