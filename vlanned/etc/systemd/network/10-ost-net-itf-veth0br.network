@@ -1,5 +1,8 @@
-# definicje na potrzeby network-interface wg kolla-ansible
-# (interfejs z adresacja dla management i sieci tenanckich overlay)
+# Definicje tagowanych sieci VLAN
+# - korzystamy z plików systemd, bo obecnie VLANów tagowanych nie da się
+# ustawic w netplan (moze kiedys to sie zmieni)
+# - definicje na potrzeby network-interface wg kolla-ansible (to interfejs z
+# adresacja dla sieci management/dashboard i dla sieci tenanckich overlay)
 
 [Match]
 Name=veth0br
@@ -8,7 +11,7 @@ Name=veth0br
 Bridge=brmux
 
 # w celu dociągnięcia do veth0 sieci nietagowanej z adresacja IP rutowalną w Linksys na
-# potrzeby sieci management oraz sieci tenanckich overlay (np. VXLANowych)
+# potrzeby sieci management/dashboard oraz sieci tenanckich overlay (np. VXLANowych)
 # - analogicznie jest w veth1br, ale na potrzeby sieci provider i ew. sieci tenanckich w
 # technice VLAN (o ile beda dozwolone w pliku ml.2 - por. konfiguracje dla kolla-ansible)
 # - z sieci tagowanej VLAN=2 do veth0 (i do veth1 również) bedzie dostarczona siec
