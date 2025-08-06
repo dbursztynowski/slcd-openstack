@@ -13,6 +13,10 @@ Bridge=brmux
 # technice VLAN (o ile beda dozwolone w pliku ml.2 - por. konfiguracje dla kolla-ansible)
 # - z sieci tagowanej VLAN=2 do veth0 (i do veth1 również) bedzie dostarczona siec
 # nietagowana (domyslny VLAN=1)
+# - ponizej, PVID=2 powoduje dodanie znacznika VLAN=2 do każdej przychodzacej nietagowanej
+# ramki, a EgressUntagged=2 wymusza, że każda ramka tagowana z VLAN=2 mająca w switchu wyjsc
+# tym interfejsem ma zdejmowany tag i wychodzi na zewnatrz switcha jako nietagowana (kierunek
+# przesyłu ramki przychodząca/wychodząca zawsze określamy patrzac z perspektywy switcha/bridgea)
 [BridgeVLAN]
 PVID=2
 EgressUntagged=2
