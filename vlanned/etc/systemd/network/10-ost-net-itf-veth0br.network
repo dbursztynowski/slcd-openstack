@@ -36,4 +36,4 @@ EgressUntagged=2
 # pliku ml.2 - por. konfiguracje dla kolla-ansible)
 # ponizsze VLANy beda dostarczone do veth1 na potrzeby Neutrona
 #[BridgeVLAN]
-#VLAN=100-104
+#VLAN=101-103
