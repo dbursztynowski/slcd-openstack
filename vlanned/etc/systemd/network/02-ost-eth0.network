@@ -19,6 +19,6 @@ Bridge=brmux
 VLAN=2
 
 # VLANy dla sieci VLAN provider network realizowanych jako VLANy tagowane
-# edukacyjnie - pięć VLANow to az za duzo
+# edukacyjnie - trzy VLANy zupełnie wystarczą
 [BridgeVLAN]
-VLAN=100-104
+VLAN=101-103
